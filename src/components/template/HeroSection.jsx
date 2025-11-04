@@ -28,7 +28,7 @@ const HeroSection = () => {
         <Snowfall />
       </div>
       {/* Konten utama */}
-      <div className="relative z-20 px-4 pb-24 flex flex-col items-center">
+      <div className="relative z-20 px-4 pb-32 flex flex-col items-center">
         {/* Save The Date */}
         <p data-aos="fade-down" data-aos-delay="200" className="font-vibes text-3xl mb-6 tracking-wider text-white drop-shadow-md">
           Save The Date

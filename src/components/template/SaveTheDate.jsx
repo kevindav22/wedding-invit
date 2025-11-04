@@ -35,7 +35,7 @@ const WeddingCardSection = () => {
       title: 'Resepsi Pernikahan',
       dateText: 'Minggu, 9 November 2025',
       timeText: '10.00 WIB – Selesai',
-      countdown: { id: 2, date: '12-12-2025-11:00' },
+      countdown: { id: 2, date: '09-11-2025-10:00' },
       place: 'Kediamanan Mempelai Wanita',
       address: 'Dk. Ceme Rt.01, Wonotolo, Gondang',
       region: 'Sragen - Jawa Tengah',
