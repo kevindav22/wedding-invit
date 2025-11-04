@@ -44,7 +44,7 @@ const WeddingCardSection = () => {
   ];
 
   return (
-    <section id='savethedatesection' className="relative w-full flex flex-col items-center py-16 px-6 text-center bg-cover bg-center bg-no-repeat overflow-hidden" style={{ backgroundImage: `url(${bgSection})` }}>
+    <section id="savethedatesection" className="relative w-full flex flex-col items-center py-16 px-6 text-center bg-cover bg-center bg-no-repeat overflow-hidden" style={{ backgroundImage: `url(${bgSection})` }}>
       {/* === Dekorasi bunga atas === */}
       <div data-aos="fade-down" data-aos-duration="600" className="absolute -top-30 opacity-80 pointer-events-none select-none">
         <motion.img

@@ -16,35 +16,14 @@ const Doa = [
   },
 ];
 
-// hanya diperhalus transisi
-const typingVariants = {
-  hidden: { opacity: 1 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.02, // lebih rapat tapi halus
-      ease: 'easeInOut',
-    },
-  },
-};
-
-const charVariants = {
-  hidden: { opacity: 0, y: 1 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.04, ease: 'easeOut' },
-  },
-};
-
 const DoaSection = () => {
   return (
     <section className="relative w-full min-h-screen flex justify-center items-center py-24 px-8 overflow-hidden bg-cover bg-center" style={{ backgroundImage: `url(${bgDoa})` }}>
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-xs"></div>
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
 
       <div className="relative z-10 bg-white/40  rounded-3xl shadow-md overflow-hidden border-2 border-white/70 max-w-3xl w-full" data-aos="fade-up">
         <div className="w-full h-80 overflow-hidden rounded-xl" data-aos="fade-up" data-aos-delay="200">
-          <img src={topImage} alt="Doa Section Header" className="w-full h-full object-cover object-top scale-105 select-none pointer-events-none" />
+          <img src={topImage} alt="Doa Section Header" loading="lazy" className="w-full h-full object-cover object-top scale-105 select-none pointer-events-none" />
         </div>
 
         <div className="p-8 text-center" data-aos="fade-up" data-aos-delay="800">
@@ -67,15 +46,10 @@ const DoaSection = () => {
 
                 <span className="text-5xl font-jawa text-white translate-y-4">{item.inisialMempelai[1].inisial}</span>
               </div>
-
-              {/* hanya bagian ini yang diperhalus */}
-              <motion.p variants={typingVariants} initial="hidden" animate="visible" className="text-gray-700 text-base leading-relaxed italic font-playfair px-2 inline-block">
-                {item.ayat.split('').map((char, index) => (
-                  <motion.span key={index} variants={charVariants}>
-                    {char}
-                  </motion.span>
-                ))}
-              </motion.p>
+              <p data-aos="fade-up" data-aos-delay="800" className="text-gray-700 text-base leading-relaxed italic font-playfair px-2 inline-block">
+                {' '}
+                {item.ayat}
+              </p>
 
               <p className="mt-6 text-white text-lg font-playfair font-semibold tracking-wide">{item.surat}</p>
 

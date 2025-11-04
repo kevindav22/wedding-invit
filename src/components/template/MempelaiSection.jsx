@@ -25,8 +25,8 @@ const MempelaiSection = () => {
       namaLengkap: 'Fitria Agustina',
       orangTuaNama: 'Bpk. Mariman & Ibu Rukmiyati',
       alamat: 'Dk. Ceme Rt.01, Wonotolo, Gondang, Sragen - Jawa Tengah',
-      instagram: 'fitriaaa_',
-      linkIg: 'https://instagram.com/',
+      instagram: 'riaagsttt_',
+      linkIg: 'https://www.instagram.com/riaagsttt_/?utm_source=ig_web_button_share_sheet',
       foto: fotowanita,
     },
     {
@@ -34,8 +34,8 @@ const MempelaiSection = () => {
       namaLengkap: 'Rizki Yusril Mahendra',
       orangTuaNama: 'Bpk. Ratmo & Ibu Sri Sugiyanti',
       alamat: 'Dk. Padas Rt.05, Glonggong, Gondang, Sragen - Jawa Tengah',
-      instagram: 'yusrilpsht_',
-      linkIg: 'https://instagram.com/',
+      instagram: 'rizkyyusrilm',
+      linkIg: 'https://www.instagram.com/rizkyyusrilm/?utm_source=ig_web_button_share_sheet',
       foto: fotopria,
     },
   ];
@@ -43,22 +43,21 @@ const MempelaiSection = () => {
   return (
     <section id="mempelaisection" className="relative w-full flex flex-col items-center py-16 px-6 bg-surface-50 overflow-hidden">
       {/* === Elemen dekorasi bunga kanan atas === */}
+      {/* === Elemen dekorasi bunga kanan atas === */}
       <motion.img
         src={floralElement}
         alt="Dekorasi bunga kanan atas"
         className="absolute top-40 -right-20 w-64 opacity-70 pointer-events-none select-none"
-        initial={{ opacity: 0, scale: 0.9, rotate: -10, y: -10 }}
+        initial={{ opacity: 0, scale: 0.95, rotate: -5 }}
         animate={{
-          opacity: [0.2, 0.7, 0.4],
-          scale: [1, 1.08, 1],
-          rotate: [-10, 5, -10],
-          y: [-10, 10, -10],
+          opacity: [0.6, 0.75, 0.6],
+          scale: [1, 1.04, 1],
+          rotate: [-5, 5, -5],
         }}
         transition={{
-          opacity: { repeat: Infinity, repeatType: 'reverse', duration: 6, ease: 'easeInOut' },
-          scale: { repeat: Infinity, repeatType: 'reverse', duration: 6, ease: 'easeInOut' },
-          rotate: { repeat: Infinity, repeatType: 'reverse', duration: 8, ease: 'easeInOut' },
-          y: { repeat: Infinity, repeatType: 'reverse', duration: 8, ease: 'easeInOut' },
+          duration: 6,
+          ease: 'easeInOut',
+          repeat: Infinity,
         }}
       />
 
@@ -66,17 +65,17 @@ const MempelaiSection = () => {
       <motion.img
         src={pampasElement}
         alt="Dekorasi pampas bawah kiri"
-        className="absolute bottom-0 -left-5 w-80 opacity-70 pointer-events-none select-none rotate-23"
-        initial={{ opacity: 0, scale: 0.8, y: 40 }}
+        className="absolute -bottom-20 -left-5 w-80 opacity-70 pointer-events-none select-none"
+        initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
         animate={{
-          opacity: [0.2, 0.7, 0.4],
-          scale: [1, 1.1, 1],
-          y: [40, 20, 40],
+          opacity: [0.4, 0.6, 0.4],
+          scale: [1, 1.05, 1],
+          rotate: [2, -8, 2],
         }}
         transition={{
-          opacity: { repeat: Infinity, repeatType: 'reverse', duration: 6, ease: 'easeInOut' },
-          scale: { repeat: Infinity, repeatType: 'reverse', duration: 7, ease: 'easeInOut' },
-          y: { repeat: Infinity, repeatType: 'reverse', duration: 8, ease: 'easeInOut' },
+          duration: 7,
+          ease: 'easeInOut',
+          repeat: Infinity,
         }}
       />
 

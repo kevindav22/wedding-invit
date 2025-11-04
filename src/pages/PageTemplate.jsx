@@ -20,7 +20,6 @@ const PageTemplate = () => {
           // === Halaman pembuka undangan ===
           <OpeningSection onOpen={() => setOpened(true)} />
         ) : (
-          // === Isi undangan setelah dibuka ===
           <>
             <HeroSection />
             <DoaSection />

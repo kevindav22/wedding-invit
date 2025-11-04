@@ -7,27 +7,53 @@ const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef(null);
 
-  useEffect(() => {
+  // Fungsi untuk play/pause
+  const playAudio = () => {
     const audio = audioRef.current;
     if (!audio) return;
+    audio.play().catch(() => setIsPlaying(false));
+  };
 
-    if (isPlaying) {
-      audio.play().catch(() => setIsPlaying(false));
-    } else {
-      audio.pause();
-    }
-  }, [isPlaying]);
+  const pauseAudio = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.pause();
+  };
 
+  // Toggle manual
   const togglePlay = () => {
     setIsPlaying((p) => !p);
   };
 
+  // Effect untuk memutar / pause sesuai isPlaying
+  useEffect(() => {
+    if (isPlaying) {
+      playAudio();
+    } else {
+      pauseAudio();
+    }
+  }, [isPlaying]);
+
+  // Effect untuk handle visibility (pause saat tab tidak aktif)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        pauseAudio();
+      } else if (document.visibilityState === 'visible' && isPlaying) {
+        playAudio();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isPlaying]);
+
   return (
     <>
-      {/* Audio element */}
       <audio ref={audioRef} src={musicFile} loop preload="auto" />
 
-      {/* Inline CSS untuk spin dan pause (agar portable tanpa config Tailwind) */}
       <style>{`
         @keyframes spin {
           from { transform: rotate(0deg); }
@@ -43,14 +69,12 @@ const MusicPlayer = () => {
         }
       `}</style>
 
-      {/* Button */}
       <motion.div
         onClick={togglePlay}
-        whileTap={{ scale: 0.95, translateY: 1 }} /* efek ditekan kedalam */
+        whileTap={{ scale: 0.95, translateY: 1 }}
         className="cursor-pointer flex items-center justify-center w-14 h-14 bg-yellow-500 rounded-full shadow-lg border border-white/20"
         title={isPlaying ? 'Pause Musik' : 'Putar Musik'}
       >
-        {/* Icon: pakai CSS animation, tambahkan class paused saat isPlaying=false */}
         <div className={isPlaying ? 'music-icon-spin' : 'music-icon-spin music-icon-paused'}>
           <FaMusic className="text-black text-2xl" />
         </div>
