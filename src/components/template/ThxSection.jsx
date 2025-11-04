@@ -81,8 +81,8 @@ const TerimakasihSection = () => {
         </p>
 
         {/* Garis bawah */}
-      
-        <Footer/>
+
+        <Footer />
       </div>
     </section>
   );

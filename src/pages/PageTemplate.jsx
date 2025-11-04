@@ -5,12 +5,11 @@ import HeroSection from '../components/template/HeroSection';
 import MempelaiSection from '../components/template/MempelaiSection';
 import SaveTheDate from '../components/template/SaveTheDate';
 import SpecialGift from '../components/template/SpecialGift';
-import TerimakasihSection from '../components/template/TerimaKasihSection';
 import UcapanSection from '../components/template/UcapanSection';
 import OpeningSection from '../components/template/OpeningSection'; // ← tambahkan ini
 
 import BottomNavbar from '../components/template/Navbar';
-
+import TerimakasihSection from '../components/template/ThxSection';
 
 const PageTemplate = () => {
   const [opened, setOpened] = useState(false); // state untuk membuka undangan
