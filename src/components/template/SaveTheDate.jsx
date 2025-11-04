@@ -7,8 +7,8 @@ import CountdownDate from '../entities/Date';
 import bgCard from '../../assets/images/foto2.webp';
 import bgSection from '../../assets/images/bg2.jpg';
 import logoWayang from '../../assets/images/wayang2.png';
-import bungaAtas from '../../assets/images/bungaAtas.png';
-import bungaBawah from '../../assets/images/bungaBawah.png';
+import bungaAtas from '../../assets/images/bungaatas.png';
+import bungaBawah from '../../assets/images/bungabawah.png';
 
 AOS.init({
   duration: 900,
