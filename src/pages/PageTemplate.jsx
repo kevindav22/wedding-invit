@@ -6,8 +6,7 @@ import MempelaiSection from '../components/template/MempelaiSection';
 import SaveTheDate from '../components/template/SaveTheDate';
 import SpecialGift from '../components/template/SpecialGift';
 import UcapanSection from '../components/template/UcapanSection';
-import OpeningSection from '../components/template/OpeningSection'; // ← tambahkan ini
-
+import OpeningSection from '../components/template/OpeningSection';
 import BottomNavbar from '../components/template/Navbar';
 import TerimakasihSection from '../components/template/ThxSection';
 
@@ -31,7 +30,6 @@ const PageTemplate = () => {
             <UcapanSection />
             <SpecialGift />
             <TerimakasihSection />
-
             <BottomNavbar />
           </>
         )}
