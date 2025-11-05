@@ -39,7 +39,7 @@ const WeddingCardSection = () => {
       place: 'Kediamanan Mempelai Wanita',
       address: 'Dk. Ceme Rt.01, Wonotolo, Gondang',
       region: 'Sragen - Jawa Tengah',
-      mapsUrl: '#',
+      mapsUrl: 'https://maps.app.goo.gl/5CQTBWi6tNdhd1rZ7',
     },
   ];
 

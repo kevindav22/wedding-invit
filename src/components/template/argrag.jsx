@@ -244,3 +244,23 @@ const UcapanSection = () => {
 };
 
 export default UcapanSection;
+
+
+
+
+
+  // Kirim WA satu per satu
+  const handleSendWA = (index) => {
+    const h = hasil[index];
+    window.open(h.waLink, '_blank');
+    // Update status sent
+    const newHasil = [...hasil];
+    newHasil[index].sent = true;
+    setHasil(newHasil);
+};
+  
+
+ <ResultTable
+                hasil={hasil}
+                onSendWA={handleSendWA} // untuk klik WA per row
+              />

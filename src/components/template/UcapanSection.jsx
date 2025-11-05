@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaCheckCircle, FaTimesCircle, FaClock, FaReply, FaUserCircle } from 'react-icons/fa';
 import { getTimeAgo } from '../entities/TimesAgo';
+import ApiClient from '../../api/ApiClient'; // tetap impor ini saja
 
 const UcapanSection = () => {
   const [nama, setNama] = useState('');
@@ -10,6 +11,71 @@ const UcapanSection = () => {
   const [replyTo, setReplyTo] = useState(null);
   const [replyNama, setReplyNama] = useState('');
   const [replyText, setReplyText] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // === Fungsi API langsung di sini ===
+  const getUcapanApi = async () => {
+    const res = await ApiClient.get('/ucapan');
+    return res.data;
+  };
+
+  const addUcapanApi = async (data) => {
+    const res = await ApiClient.post('/ucapan', data);
+    return res.data;
+  };
+
+  const addReplyApi = async (id, data) => {
+    const res = await ApiClient.post(`/ucapan/${id}/reply`, data);
+    return res.data;
+  };
+
+  // === Ambil data dari backend saat pertama kali render ===
+  useEffect(() => {
+    fetchUcapan();
+  }, []);
+
+  const fetchUcapan = async () => {
+    try {
+      setLoading(true);
+      const data = await getUcapanApi();
+      setDataUcapan(data);
+    } catch (err) {
+      console.error('Gagal mengambil data ucapan:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // === Kirim ucapan baru ke backend ===
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!nama || !ucapan || !status) return;
+
+    try {
+      const newData = await addUcapanApi({ nama, status, ucapan });
+      setDataUcapan((prev) => [newData, ...prev]);
+      setNama('');
+      setUcapan('');
+      setStatus('');
+    } catch (err) {
+      console.error('Gagal mengirim ucapan:', err);
+    }
+  };
+
+  // === Kirim balasan ke backend ===
+  const handleReply = async (id) => {
+    if (!replyNama || !replyText) return;
+
+    try {
+      const updated = await addReplyApi(id, { nama: replyNama, text: replyText });
+      setDataUcapan((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
+      setReplyTo(null);
+      setReplyNama('');
+      setReplyText('');
+    } catch (err) {
+      console.error('Gagal mengirim balasan:', err);
+    }
+  };
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -22,44 +88,6 @@ const UcapanSection = () => {
       default:
         return null;
     }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!nama || !ucapan || !status) return;
-
-    const newUcapan = {
-      id: Date.now(),
-      nama,
-      status,
-      ucapan,
-      waktu: new Date(),
-      replies: [],
-    };
-
-    setDataUcapan([newUcapan, ...dataUcapan]);
-    setNama('');
-    setUcapan('');
-    setStatus('');
-  };
-
-  const handleReply = (id) => {
-    if (!replyNama || !replyText) return;
-
-    setDataUcapan((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              replies: [...item.replies, { id: Date.now(), nama: replyNama, text: replyText, waktu: new Date() }],
-            }
-          : item
-      )
-    );
-
-    setReplyTo(null);
-    setReplyNama('');
-    setReplyText('');
   };
 
   const totalUcapan = dataUcapan.length;
@@ -102,9 +130,6 @@ const UcapanSection = () => {
         {/* === Form utama === */}
         <form onSubmit={handleSubmit} className="bg-white/80 rounded-lg shadow-md p-6 border border-gray-100 flex flex-col gap-6 font-playfair" data-aos="fade-up">
           <div className="flex flex-col gap-3" data-aos="zoom-in">
-            <label htmlFor="nama" className="sr-only">
-              Nama
-            </label>
             <input
               id="nama"
               name="nama"
@@ -116,9 +141,6 @@ const UcapanSection = () => {
               required
             />
 
-            <label htmlFor="status" className="sr-only">
-              Status Kehadiran
-            </label>
             <select id="status" name="status" value={status} onChange={(e) => setStatus(e.target.value)} className="w-full p-2.5 rounded-md border border-gray-300 text-gray-700 focus:ring-1 focus:ring-amber-400 focus:outline-none" required>
               <option value="" disabled>
                 Status kehadiran...
@@ -128,9 +150,6 @@ const UcapanSection = () => {
               <option value="Tidak Hadir">Tidak Hadir</option>
             </select>
 
-            <label htmlFor="ucapan" className="sr-only">
-              Ucapan
-            </label>
             <textarea
               id="ucapan"
               name="ucapan"
@@ -142,15 +161,17 @@ const UcapanSection = () => {
               required
             ></textarea>
 
-            <button type="submit" className="mt-2 bg-amber-500 text-white py-2 px-6 rounded-md font-semibold hover:bg-amber-600 transition-all shadow-sm">
-              Kirim
+            <button type="submit" disabled={loading} className="mt-2 bg-amber-500 text-white py-2 px-6 rounded-md font-semibold hover:bg-amber-600 transition-all shadow-sm">
+              {loading ? 'Mengirim...' : 'Kirim'}
             </button>
           </div>
 
           {/* === Daftar Ucapan === */}
           <div className="pt-6 mt-4 border-t border-gray-200">
             <div className="max-h-[600px] overflow-y-auto pr-2 space-y-6">
-              {dataUcapan.length === 0 && <p className="text-gray-500 text-center italic">Belum ada ucapan yang dikirim.</p>}
+              {dataUcapan.length === 0 && !loading && <p className="text-gray-500 text-center italic">Belum ada ucapan yang dikirim.</p>}
+
+              {loading && <p className="text-center text-gray-500">Memuat data...</p>}
 
               {dataUcapan.map((item) => (
                 <div key={item.id} className="pb-4 border-b border-gray-200">
@@ -168,7 +189,7 @@ const UcapanSection = () => {
                       <div className="mt-2 flex items-center gap-3 text-sm text-gray-500">
                         <span className="flex items-center gap-1">
                           <FaClock className="text-sm" />
-                          {getTimeAgo(item.waktu)}
+                          {getTimeAgo(item.createdAt)}
                         </span>
                         <button type="button" onClick={() => setReplyTo(replyTo === item.id ? null : item.id)} className="flex items-center gap-1 hover:text-amber-600">
                           <FaReply className="text-sm" />
@@ -177,19 +198,15 @@ const UcapanSection = () => {
                       </div>
 
                       {/* === Balasan === */}
-                      {item.replies.length > 0 && (
-                        <div className="mt-3 ml-8 border-l border-gray-300 pl-4 space-y-2">
-                          {item.replies.map((r) => (
-                            <div key={r.id}>
-                              <p className="font-semibold text-gray-800">{r.nama}</p>
-                              <p className="text-gray-700">{r.text}</p>
-                              <p className="text-gray-400 text-xs mt-1 flex items-center gap-1">
-                                <FaClock /> {getTimeAgo(r.waktu)}
-                              </p>
-                            </div>
-                          ))}
+                      {(Array.isArray(item.replies) ? item.replies : []).map((r) => (
+                        <div key={r.id} className="mt-3 ml-8 border-l border-gray-300 pl-4 space-y-1">
+                          <p className="font-semibold text-gray-800">{r.nama}</p>
+                          <p className="text-gray-700">{r.text}</p>
+                          <p className="text-gray-400 text-xs mt-1 flex items-center gap-1">
+                            <FaClock /> {getTimeAgo(r.waktu)}
+                          </p>
                         </div>
-                      )}
+                      ))}
 
                       {/* === Form balasan === */}
                       {replyTo === item.id && (

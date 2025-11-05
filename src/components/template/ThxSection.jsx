@@ -7,10 +7,11 @@ import bg1 from '../../assets/images/foto1.webp';
 import bg2 from '../../assets/images/foto2.webp';
 import bg3 from '../../assets/images/foto3.webp';
 import bg4 from '../../assets/images/foto4.webp';
+import img5 from '../../assets/images/foto5.jpg';
 import Footer from './Footer';
 
 const TerimakasihSection = () => {
-  const backgrounds = [bg1, bg2, bg3, bg4];
+  const backgrounds = [bg1, bg2, bg3, bg4, img5];
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState(null);
 

@@ -1,6 +1,6 @@
 // src/components/template/DoaSection.jsx
 import { motion } from 'framer-motion';
-import topImage from '../../assets/images/kartun1.jpg';
+import topImage from '../../assets/images/foto5.jpg';
 import wayangIcon from '../../assets/images/wayang1.png';
 import bgDoa from '../../assets/images/bg1.png';
 
@@ -24,6 +24,7 @@ const DoaSection = () => {
       <div className="relative z-10 bg-white/40  rounded-3xl shadow-md overflow-hidden border-2 border-white/70 max-w-3xl w-full" data-aos="fade-up">
         <div className="w-full h-80 overflow-hidden rounded-xl" data-aos="fade-up" data-aos-delay="200">
           <img src={topImage} alt="Doa Section Header" loading="lazy" className="w-full h-full object-cover object-top scale-105 select-none pointer-events-none" />
+          <div className="absolute bottom-0 left-0 right-0 h-40 bg-linear-to-t from-black/70 via-black/40 to-transparent z-0"></div>
         </div>
 
         <div className="p-8 text-center" data-aos="fade-up" data-aos-delay="800">

@@ -4,25 +4,31 @@ import img1 from '../../assets/images/foto1.webp';
 import img2 from '../../assets/images/foto2.webp';
 import img3 from '../../assets/images/foto3.webp';
 import img4 from '../../assets/images/foto4.webp';
+import img5 from '../../assets/images/foto5.webp';
 
-const images = [img1, img2, img3, img4];
+const images = [img1, img2, img3, img4, img5];
 
 const WeddingGallerySlide = () => {
+  // jumlah gambar * (lebar + gap)
+  const slideWidth = images.length * (256 + 8); // 256px (w-64) + 8px gap
+
   return (
-    <section id="gallery" className="relative w-full flex flex-col items-center bg-gray-50 text-center py-16 px-6">
-      {/* Slider Landscape Otomatis */}
+    <section
+      id="gallery"
+      className="relative w-full flex flex-col items-center bg-gray-50 text-center py-16 px-6 overflow-hidden"
+    >
+      {/* SLIDER */}
       <div className="relative w-full overflow-hidden">
         <motion.div
           className="flex gap-2"
-          animate={{ x: ['0%', '-100%'] }}
+          animate={{ x: [0, -slideWidth] }}
           transition={{
-            duration: 50,
+            duration: 25,
             ease: 'linear',
             repeat: Infinity,
           }}
           style={{
             willChange: 'transform',
-            transform: 'translate3d(0, 0, 0)',
           }}
         >
           {[...images, ...images].map((img, index) => (
@@ -42,7 +48,7 @@ const WeddingGallerySlide = () => {
         </motion.div>
       </div>
 
-      {/* Garis bawah */}
+      {/* GARIS PEMBATAS */}
       <div className="mt-10 mx-auto w-28 h-0.5 bg-linear-to-r from-yellow-500 via-yellow-400 to-yellow-500 rounded-full"></div>
     </section>
   );
