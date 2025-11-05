@@ -6,16 +6,14 @@ import RecipientForm from './Recipient';
 import ResultTable from './ResultTable';
 
 const DEFAULT_TEMPLATE = `Dengan penuh rasa syukur dan kebahagiaan,
-kami bermaksud mengundang Bapak/Ibu/Saudara/i [Nama]
+kami bermaksud mengundang Bapak/Ibu/Saudara/i *[Nama]*
 untuk hadir serta memberikan doa restu pada hari pernikahan kami.
 
 Silakan klik tautan undangan berikut untuk melihat detail acara:
 
-[Link]
+_[Link]_
 
-Merupakan suatu kehormatan dan kebahagiaan bagi kami
-apabila Bapak/Ibu/Saudara/i berkenan hadir
-serta turut mendoakan keberkahan dalam langkah awal perjalanan kami.
+Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir serta turut mendoakan keberkahan dalam langkah awal perjalanan kami.
 
 Atas perhatian dan doa restunya, kami ucapkan terima kasih.
 
