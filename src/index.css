@@ -27,3 +27,19 @@ body {
 .font-playfair {
   font-family: 'Playfair Display', serif;
 }
+
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+@keyframes floatDownUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.floating-slow {
+  animation: floatUpDown 10s ease-in-out infinite;
+}
+.floating-slow-rev {
+  animation: floatDownUp 10s ease-in-out infinite;
+}

@@ -1,6 +1,6 @@
 // src/components/template/TerimakasihSection.jsx
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import bg1 from '../../assets/images/foto1.webp';
@@ -13,58 +13,49 @@ import Footer from './Footer';
 const TerimakasihSection = () => {
   const backgrounds = [bg1, bg2, bg3, bg4, img5];
   const [current, setCurrent] = useState(0);
-  const [prev, setPrev] = useState(null);
 
-  // Ganti gambar tiap 6 detik dengan crossfade overlap
   useEffect(() => {
+    const preload = backgrounds.map((src) => {
+      const img = new Image();
+      img.src = src;
+      return img;
+    });
+
     const interval = setInterval(() => {
-      setPrev(current);
       setCurrent((prev) => (prev + 1) % backgrounds.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, [current, backgrounds.length]);
+  }, []);
 
-  // Inisialisasi AOS sekali saja
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      easing: 'ease-in-out',
-    });
+    AOS.init({ duration: 800, once: true, easing: 'ease-out' });
   }, []);
 
   return (
-    <section id="terimakasih" className="relative w-full flex flex-col items-center py-20 px-6 text-center overflow-hidden">
-      {/* === Background crossfade === */}
-      <div className="absolute inset-0">
-        {/* Gambar sebelumnya (fade out) */}
-        {prev !== null && (
+    <section id="terimakasih" className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 text-center overflow-hidden">
+      {/* === Crossfade background dengan GPU acceleration === */}
+      <div className="absolute inset-0 will-change-transform will-change-opacity">
+        <AnimatePresence>
           <motion.div
-            key={`prev-${prev}`}
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 0 }}
-            transition={{ duration: 2.2, ease: 'easeInOut' }}
-            className="absolute inset-0 bg-cover bg-center will-change-transform"
-            style={{ backgroundImage: `url(${backgrounds[prev]})` }}
+            key={current}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2, ease: 'easeInOut' }}
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${backgrounds[current]})`,
+              willChange: 'opacity, transform',
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden',
+            }}
           />
-        )}
-
-        {/* Gambar berikutnya (fade in) */}
-        <motion.div
-          key={`current-${current}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2.2, ease: 'easeInOut' }}
-          className="absolute inset-0 bg-cover bg-center will-change-transform"
-          style={{ backgroundImage: `url(${backgrounds[current]})` }}
-        />
-
-        {/* Overlay gelap agar teks tetap terbaca */}
-        <div className="absolute inset-0 bg-black/60"></div>
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
       </div>
 
       {/* === Konten utama === */}
-      <div className="relative z-10 w-full max-w-4xl bg-white/10 backdrop-blur-[3px] rounded-2xl shadow-lg p-10 border border-white/20" data-aos="zoom-in">
+      <div className="relative z-10 w-full max-w-4xl bg-white/10 backdrop-blur-[2px] rounded-2xl shadow-lg p-10 border border-white/20" data-aos="zoom-in">
         <h3 className="text-5xl text-yellow-500 mb-8 font-vibes" data-aos="fade-up" data-aos-delay="200">
           Terima Kasih
         </h3>

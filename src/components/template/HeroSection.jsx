@@ -22,7 +22,7 @@ const HeroSection = () => {
   return (
     <section id='herosection' className="relative w-full h-screen flex flex-col justify-end items-center text-center bg-cover bg-center overflow-hidden" style={{ backgroundImage: `url(${nikahBg})` }}>
       {/* Overlay gelap */}
-      <div className="absolute inset-0 bg-black/40 z-0"></div>
+      <div className="absolute inset-0 bg-black/50 z-0"></div>
       {/* Efek salju */}
       <div className="absolute inset-0 z-10 pointer-events-none">
         <Snowfall />
