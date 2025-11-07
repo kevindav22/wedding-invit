@@ -13,10 +13,14 @@ const gifts = [
 ];
 
 const SpecialGift = () => {
+
   const handleCopy = (number) => {
-    navigator.clipboard.writeText(number);
-    alert('Nomor rekening berhasil disalin!');
+    // Hapus semua spasi dan karakter non-angka
+    const cleanNumber = number.replace(/\D/g, '');
+    navigator.clipboard.writeText(cleanNumber);
+    alert('Nomor rekening berhasil disalin tanpa spasi!');
   };
+
 
   return (
     <section id="gift" className="relative w-full flex flex-col items-center justify-center text-center min-h-screen overflow-hidden bg-gray-900">
